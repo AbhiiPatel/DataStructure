@@ -47,11 +47,12 @@ int main(){
 		 addNode(25,root);
 		 addNode(150,root);
 	
+	/*
 	printf("%d",root->data);  //50
 	printf("\n%d",root->left->data);  //35
 	printf("\n%d",root->right->data); //100
 	printf("\n%d",root->left->left->data);  //25
 	printf("\n%d",root->right->right->data);  //150
-	
+	*/
 	return 0;
 }
