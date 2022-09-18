@@ -89,7 +89,7 @@ struct node* insertNode(struct node *root,int data){
 		 
 		if(bf<0){
 			if(data > root->right->data){
-				printf(" %d  %d",data,root->right->data);
+//				printf(" %d  %d",data,root->right->data);
 				printf(" RR ");
 				return leftRotate(root);
 			}else{
@@ -149,6 +149,7 @@ struct node* inorderSuccesser(struct node *root){
 
 struct node* deleteNode(struct node *root,int key){
 	struct node *temp;
+	int bf;
 	
 	if(root == NULL)
 		return NULL;
@@ -180,6 +181,36 @@ struct node* deleteNode(struct node *root,int key){
 		root->left = deleteNode(root->left,key);
 	}
 	
+	
+	root->height=calculateHeight(root);
+	bf=balanceFactor(root);
+	
+	
+	if( !(bf>=-1 && bf<=1) ){
+		printf(" *Rotation require for %d* ",root->data);
+		 
+		if(bf<0){
+			if(key > root->right->data){
+
+				printf(" RR ");
+				return leftRotate(root);
+			}else{
+				printf(" RL ");
+				root->right=rightRotate(root->right);
+				return leftRotate(root);
+			}
+		}else{
+			if(key < root->left->data){
+				printf(" LL ");
+				return rightRotate(root);
+			}else{
+				printf(" LR ");
+				root->left=leftRotate(root->left);
+				return rightRotate(root);
+			}
+		}//end of else
+		
+	}//end of if  
 	return root;
 }
 
@@ -215,12 +246,17 @@ int main(){
 //		insertNode(root,120);
 	printf("\n\nHeight of every node:\n\n");
 	inOrder(root);
-	printf("\nRoot %d",root->data);
+	printf("\nRoot %d\n\n",root->data);
+	
 	
 	deleteNode(root,50);
+	
+	printf("---------------After deleting---------------");
 	printf("\n\nHeight of every node:\n\n");
 	inOrder(root);
 	printf("\nRoot %d",root->data);
+	
 	return 0;
+	
 	
 }
