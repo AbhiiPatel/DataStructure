@@ -1,15 +1,35 @@
 #include<stdio.h>
-#define SIZE 4
+#define SIZE 7
+
+//static 
+//register
+
 
 int graph[SIZE][SIZE];
 int visited[SIZE];
 int count=0;
-int value=0;
+int value;          //global variable ( extern variable initial value[0])
+int top=-1;
+int stack[SIZE];
+int flag;
 
 void addEdge(int src,int dest,int cost){
 	graph[src][dest]=cost;
 	graph[dest][src]=cost;
 	
+}
+
+void push(int num){
+	top++;
+	stack[top]=num;
+}
+
+int pop(){
+//	int num=stack[top];
+//	top--;
+//	return num;
+
+	return stack[top--];      //same as upper line of code
 }
 
 int  main(){
@@ -44,14 +64,18 @@ int  main(){
 		}
 	}
 	
-	printf("\n Graph travel :\n");
+	printf("\n Graph travel :\n");   //dfs
 	
 	printf(" %d ->",0);
 	count++;
 	visited[0]=1;
 	i=0;
 	
+	
+	
 	while(count != SIZE){
+		
+		flag=-1;
 		for(j=0;j<SIZE;j++){
 		
 			if(graph[i][j] != -1){
@@ -59,14 +83,20 @@ int  main(){
 					printf(" %d ->",j);
 					value=value+graph[i][j];
 					visited[j]=1;
+					push(i);
 					i=j;
 					count++;
+					flag=1;
 					break;
 					
 				}
 				
 			}
 		}	
+		
+		if(flag==-1){
+			i=pop();
+		}
 	}
 	
 	printf("\nTotal value:%d",value);
