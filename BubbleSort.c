@@ -3,7 +3,7 @@
 int n=7;
 
 int main(){
-	int a[]	={-1,-2,-3,-4,-5,6,7,};         //11,2,33,4,5,17,9
+	int a[]	={11,2,33,4,5,17,9};         //11,2,33,4,5,17,9   //-1,-2,-3,-4,-5,6,7,
 	int i,j,temp,flag=0;
 	
 	printf("Array Before sorted...\n");
@@ -14,7 +14,7 @@ int main(){
 	for(i=0;i<n-1 && flag==0;i++){               //no of passes
 		flag=1;
 		printf("\n Pass :%d\n",i+1);	
-		for(j=0;j<n-1;j++){
+		for(j=0;j<n-1-i;j++){
 			if(a[j]>a[j+1]){
 				temp=a[j];
 				a[j]=a[j+1];
